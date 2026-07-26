@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rescue Monitoring System</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="/static/leaflet.css">
+
+    <style>
+        body { margin: 0; font-family: Arial; }
+        .container { display: flex; height: 100vh; }
+        .panel {
+            width: 320px;
+            min-width: 220px;
+            max-width: 500px;
+            background: #f4f4f4;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        #resizer { width: 6px; cursor: col-resize; background: #999; }
+        #map { flex: 1; height: 100%; }
+        .search {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 10px;
+        }
+        .card {
+            background: white;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-left: 5px solid green;
+            cursor: pointer;
+        }
+        .sos {
+            border-left: 5px solid red;
+            background: #ffe5e5;
+        }
+        .time { font-size: 11px; color: gray; }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="panel" id="panel">
+        <h3>History Data</h3>
+        <input class="search" id="search" placeholder="Search Device ID">
+        <div id="deviceList"></div>
+    </div>
+
+    <div id="resizer"></div>
+    <div id="map"></div>
+
+</div>
+
+<script src="/static/leaflet.js"></script>
+
+<script>
+const map = L.map('map').setView([10.91759, 76.98824], 15);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+}).addTo(map);
+
+let historyMarkers = [];
+
+// ================= LOAD HISTORY =================
+async function loadHistory() {
+    const res = await fetch("/history");
+    const data = await res.json();
+
+    const list = document.getElementById("deviceList");
+    const text = document.getElementById("search").value.toLowerCase();
+    list.innerHTML = "";
+
+    historyMarkers.forEach(m => map.removeLayer(m));
+    historyMarkers = [];
+
+    data.forEach((d, i) => {
+        if (!d.device_id.toLowerCase().includes(text)) return;
+
+        const marker = L.marker([d.lat, d.lon], {
+            radius: 6,
+            color: d.status === "SOS" ? "red" : "green"
+        }).addTo(map);
+
+        marker.bindPopup(`
+            <b>${d.device_id}</b><br>
+            ${d.time}<br>
+            Status: ${d.status}
+        `);
+
+        historyMarkers.push(marker);
+
+        const card = document.createElement("div");
+        card.className = "card " + (d.status === "SOS" ? "sos" : "");
+        card.innerHTML = `
+            <b>${d.device_id}</b>
+            <span style="float:right;color:red;cursor:pointer;" onclick="clearOne(${i})">❌</span><br>
+            Status: ${d.status}<br>
+            Lat: ${d.lat}, Lon: ${d.lon}<br>
+            <span class="time">${d.time}</span>
+        `;
+
+        card.onclick = () => {
+            map.setView([d.lat, d.lon], 17);
+            marker.openPopup();
+        };
+
+        list.appendChild(card);
+    });
+}
+
+// ================= CLEAR FUNCTIONS =================
+async function clearOne(index) {
+    await fetch(`/clear/${index}`, { method: "DELETE" });
+    loadHistory();
+}
+
+async function clearAll() {
+    if (!confirm("Clear all history?")) return;
+    await fetch("/clear_all", { method: "DELETE" });
+    loadHistory();
+}
+
+// ================= UI =================
+document.getElementById("search").addEventListener("keyup", loadHistory);
+
+const panel = document.getElementById("panel");
+const btn = document.createElement("button");
+btn.innerText = "🗑 Clear All History";
+btn.style.width = "100%";
+btn.style.marginTop = "10px";
+btn.style.padding = "8px";
+btn.style.background = "red";
+btn.style.color = "white";
+btn.style.border = "none";
+btn.style.cursor = "pointer";
+btn.onclick = clearAll;
+panel.appendChild(btn);
+
+setInterval(loadHistory, 3000);
+loadHistory();
+
+// ================= RESIZER =================
+const resizer = document.getElementById("resizer");
+let isDragging = false;
+
+resizer.onmousedown = () => {
+    isDragging = true;
+    document.body.style.cursor = "col-resize";
+};
+
+document.onmousemove = (e) => {
+    if (!isDragging) return;
+    let w = e.clientX;
+    if (w < 220) w = 220;
+    if (w > 500) w = 500;
+    panel.style.width = w + "px";
+    map.invalidateSize();
+};
+
+document.onmouseup = () => {
+    isDragging = false;
+    document.body.style.cursor = "default";
+};
+</script>
+
+</body>
+</html>
