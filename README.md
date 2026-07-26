@@ -182,38 +182,7 @@ Traditional communication systems **fail exactly when they are needed the most**
 
 ---
 
-## 📁 Folder Structure
 
-```bash
-Rescue-Zero/
-│
-├── 📂 firmware/
-│   ├── transmitter/
-│   │   └── transmitter.ino          # ESP32 + GPS + LoRa TX code
-│   └── receiver/
-│       └── receiver.ino             # ESP32 + LoRa RX code
-│
-├── 📂 backend/
-│   ├── app.py                       # Flask main application
-│   ├── serial_reader.py             # Serial communication handler
-│   ├── sos_data.json                # SOS logs (auto-generated)
-│   └── requirements.txt             # Python dependencies
-│
-├── 📂 frontend/
-│   ├── templates/
-│   │   └── index.html               # Dashboard HTML page
-│   └── static/
-│       ├── css/
-│       │   └── style.css            # Dashboard styling
-│       └── js/
-│           └── map.js               # Leaflet.js map logic
-│
-├── 📜 README.md
-├── 📜 LICENSE
-└── 📜 .gitignore
-```
-
----
 
 ## 🏗️ System Architecture
 
