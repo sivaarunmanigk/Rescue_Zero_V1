@@ -470,9 +470,9 @@ Rescue Zero was designed and developed by:
 
 | Name | Role |
 |---|---|
-| 🧑‍💻 **Sivaarunmani G K** | Developer & Contributor |
-| 🧑‍💻 **Vishal S** | Developer & Contributor |
-| 👩‍💻 **Haritha K** | Developer & Contributor |
+| 🧑‍💻 **Sivaarunmani G K** | Embedded Developer |
+| 🧑‍💻 **Vishal S** | Hardware Developer |
+| 👩‍💻 **Haritha K** | Embedded Developer |
 
 Want to contribute? Check out our [Contributing Guidelines](CONTRIBUTING.md) and submit a Pull Request! 🚀
 
@@ -510,9 +510,9 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 **Project Team:** Sivaarunmani G K · Vishal S · Haritha K
 
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:youremail@example.com)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/yourusername)
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/yourusername)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:arunarunmani7@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](www.linkedin.com/in/sivaarunmanigk)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sivaarunmanigk)
 
 Have a question, suggestion, or want to collaborate on disaster-tech? Reach out anytime! 💬
 
@@ -526,7 +526,7 @@ Have a question, suggestion, or want to collaborate on disaster-tech? Reach out 
 
 ### ⭐ If Rescue Zero inspired you, consider giving it a star!
 
-<img src="https://img.shields.io/github/stars/yourusername/rescue-zero?style=social" alt="GitHub Stars">
+<img src="https://img.shields.io/github/stars/sivaarunmanigk/Rescue_Zero_V1?style=social" alt="GitHub Stars">
 
 <br><br>
 
