@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚨 Rescue Zero
+#  Rescue Zero
 
 ### LoRa-Based Emergency SOS Tracking System for Disaster Rescue Operations
 
